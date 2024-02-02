@@ -30,10 +30,10 @@ function authenticateToken(req, res, next) {
 // POST endpoint to insert a new product
 router.post("/add-product", authenticateToken, async (req, res) => {
   try {
-    const { name, description, price, stock, imageUrl } = req.body;
+    const { name, description, price, stock, image_url } = req.body;
 
     // Ensure required fields are provided
-    if (!name || !price || !stock || !description || !imageUrl) {
+    if (!name || !price || !stock || !description || !image_url) {
       return res
         .status(400)
         .json({ message: "Name, price, and stock are required fields" });
@@ -42,7 +42,7 @@ router.post("/add-product", authenticateToken, async (req, res) => {
     // Insert the product into the database
     const queryText =
       "INSERT INTO products (name, description, price, stock, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-    const values = [name, description, price, stock, imageUrl];
+    const values = [name, description, price, stock, image_url];
 
     const result = await pool.query(queryText, values);
     const insertedProduct = result.rows[0];
