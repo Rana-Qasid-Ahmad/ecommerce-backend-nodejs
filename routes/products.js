@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../config/db");
 
-router.get("/products", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const page = parseInt(req.query.page || 1);
     const pageSize = parseInt(req.query.pageSize || 10);

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Route for products
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.get('/products', productRouter);
+app.get('/', productRouter);
 app.post('/add-product', addproductRouter);
 app.post('/protected', protectedRouter);
 app.get('/user', userRouter);
