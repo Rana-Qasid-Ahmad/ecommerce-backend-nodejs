@@ -36,8 +36,7 @@ router.get("/", async (req, res) => {
     query += ` LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;
     queryParams.push(pageSize, offset);
 
-    console.log(query)
-    console.log(queryParams)
+  
 
     const result = await pool.query(query, queryParams);
     const products = result.rows;
