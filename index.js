@@ -27,7 +27,12 @@ app.post('/protected', protectedRouter);
 app.get('/user', userRouter);
 
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000',
+};
+
+app.use(cors(corsOptions));
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
