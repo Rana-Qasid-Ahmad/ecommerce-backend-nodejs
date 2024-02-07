@@ -24,6 +24,9 @@ app.post('/add-product', addproductRouter);
 app.post('/protected', protectedRouter);
 app.get('/user', userRouter);
 
+
+app.use(cors());
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
