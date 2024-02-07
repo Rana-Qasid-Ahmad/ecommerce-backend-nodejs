@@ -15,6 +15,8 @@ const app = express();
 
 
 // Middleware
+app.use(cors());
+
 app.use(bodyParser.json());
 
 // Route for products
@@ -28,11 +30,10 @@ app.get('/user', userRouter);
 
 
 
-app.use(cors());
 
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
