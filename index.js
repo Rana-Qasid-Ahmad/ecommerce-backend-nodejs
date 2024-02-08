@@ -21,13 +21,13 @@ app.use(bodyParser.json());
 
 // Route for products
 app.use('/login', loginRouter);
+app.get('/user', userRouter);
 app.use('/register', registerRouter);
 app.get('/', productRouter);
-app.get('/:productId', singleproductRouter);
 app.post('/add-product', addproductRouter);
 app.post('/protected', protectedRouter);
-app.get('/user', userRouter);
 
+app.get('/id/:productId', singleproductRouter);
 
 
 

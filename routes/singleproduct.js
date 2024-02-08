@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../config/db");
 
 // Route to open a product by its ID
-router.get("/:productId", async (req, res) => {
+router.get("/id/:productId", async (req, res) => {
   try {
     const productId = req.params.productId; // Extracting product ID from request parameters
     
