@@ -5,18 +5,17 @@ const router = express.Router();
 function authenticateToken(req, res, next) {
     // Gather the JWT token from the request headers, cookies, or query parameters
     const token = req.headers['authorization'];
-    
+
     if (!token) {
-        return     res.status(401).json({ message: 'Token Not Provided' });
+        return res.json({ message: 'Token Not Provided' });
         // Unauthorized if no token is provided
     }
 
     // Verify the token
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            console.log("roor")
-            return    res.status(403).json({ message: 'Invalid Token' });
- // Forbidden if token is invalid
+            return res.json({ message: 'Invalid Token' });
+            // Forbidden if token is invalid
         }
         // If the token is valid, attach the user object to the request for further processing
         req.user = user;
