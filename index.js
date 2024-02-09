@@ -27,7 +27,7 @@ app.get('/', productRouter);
 app.post('/add-product', addproductRouter);
 app.post('/protected', protectedRouter);
 
-app.get('/id/:productId', singleproductRouter);
+app.use('/id', singleproductRouter);
 
 
 
