@@ -27,6 +27,15 @@ router.get("/", async (req, res) => {
       queryParams.push(maxPrice);
     }
 
+    // Sorting
+    let sortBy = 'id'; // Default sorting by id
+    let sortOrder = 'ASC'; // Default sorting order
+    if (req.query.sort && ['id', 'name', 'price', 'stock'].includes(req.query.sort)) {
+      sortBy = req.query.sort;
+      sortOrder = req.query.sortOrder === 'desc' ? 'DESC' : 'ASC';
+    }
+    query += ` ORDER BY ${sortBy} ${sortOrder}`;
+
     const countResult = await pool.query("SELECT COUNT(*) FROM products WHERE 1 = 1");
     const totalCount = parseInt(countResult.rows[0].count);
 
@@ -35,8 +44,6 @@ router.get("/", async (req, res) => {
 
     query += ` LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;
     queryParams.push(pageSize, offset);
-
-  
 
     const result = await pool.query(query, queryParams);
     const products = result.rows;
@@ -47,5 +54,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
 
 module.exports = router;
