@@ -92,4 +92,35 @@ router.put("/:productId", async (req, res) => {
 });
 
 
+router.delete("/:productId", async (req, res) => {
+  try {
+    const token = req.headers.authorization; // Extract JWT token from the request headers
+
+    // Verify the JWT token
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+
+      // Check if the user's role contains 'admin'
+      if (!decoded || !decoded.role || !decoded.role.includes('admin')) {
+        return res.status(403).json({ message: 'Forbidden' });
+      }
+
+      const productId = req.params.productId; // Extracting product ID from request parameters
+      
+      // Constructing the SQL query to delete the product
+      const query = "DELETE FROM products WHERE id = $1";
+
+      // Executing the SQL query with the product ID parameter
+      await pool.query(query, [productId]);
+
+      res.json({ message: "Product deleted successfully" });
+    });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;
