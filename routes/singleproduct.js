@@ -7,8 +7,10 @@ const jwt = require('jsonwebtoken');
 router.get("/:productId", async (req, res) => {
   try {
     const productId = req.params.productId; // Extracting product ID from request parameters
+    console.log(productId);
     const query = "SELECT * FROM products WHERE id = $1";
     const result = await pool.query(query, [productId]);
+    
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Product not found" });

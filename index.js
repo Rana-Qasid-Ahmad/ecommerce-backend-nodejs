@@ -16,11 +16,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: '*'
-  }));
-  
+  origin: '*'
+}));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 // Route for products
 app.use('/login', loginRouter);
@@ -38,5 +37,5 @@ app.use('/id', singleproductRouter);
 // Start the server
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
